@@ -1,0 +1,68 @@
+Import "common.mql"
+
+Function 判断等级996
+    Dim ocrchar
+    ocrchar = SmartOcr(10,387,53,434,"DDE8EA-555555")
+    TracePrint "当前等级:"&CInt(ocrchar)&""
+    判断等级996 = CInt(ocrchar)
+End Function
+
+Function 判断坐标996
+    Dim ocrchar
+    Dim ocrInt
+    ocrchar = SmartOcr(527,1181,546,1254,"C6C8CB-555555")
+    ocrInt = CInt(ocrchar)
+    If ocrInt = 0 Then 
+        ocrchar = SmartOcr(527,1181,546,1254,"0104BC-555555")
+        TracePrint "当前坐标:"&CInt(ocrchar)&""
+        ocrInt = CInt(ocrchar)
+    End If
+    TracePrint "当前坐标:"&ocrInt&""
+    判断坐标996 = ocrInt
+End Function
+
+Function 定位996(x1,y1,location)
+    do
+        Delay 1000
+        Tap 612, 1169//地图
+        Delay 1000
+        Tap x1, y1//目的坐标
+        Delay 1000
+        Tap 655, 1093//关闭
+        Delay 1000
+    loop while  判断坐标996()<>location
+End Function
+
+Function 使用天山雪莲996(use)
+    Tap 603, 1107//战斗设置
+    Delay 1500
+    if common.等图(157,225,192,271, "已勾选", 0, 0.8,1) <> use then//使用天山雪莲
+        Tap 170, 246//勾选
+        Delay 555
+    End If
+    Delay 555
+    if common.等图(146,690,203,742, "已勾选", 0, 0.8,1) <> use then//使用深海
+        Tap 171, 714//勾选
+        Delay 555
+    End If
+    Delay 333
+    Tap 659, 1094//关闭
+    Delay 1000
+End Function
+
+Function 物品增删996(文字)
+    Tap 89,510      //点击到文本框
+    For i = 1 To 8   //删除多次，物品名称有多个字
+        Delay 150
+        KeyPress 67   //删除文本 
+    Next
+    Delay 800
+    Tap 89,510      //点击到文本框
+    InputText  文字  //新增文本
+    Delay 500
+    Tap 91,723      //先在低级装备里面删除该装备
+    Delay 800
+    Tap 91,612     //点击新增按钮
+
+    Delay 500
+End Function

@@ -1,0 +1,53 @@
+Function 生成随机数(min,max)
+    Dim rand = 0
+    //要产生指定范围的随机整数，请使用以下公式： 
+    //Int((最大值 - 最小值 + 1) * Rnd() + 最小值)
+    //例如产生1到2之间的随机数:
+    Randomize
+    rand = Int((max - min + 1) * Rnd() + min)
+    生成随机数 = rand
+End Function
+
+Function 双击(intX, intY)
+    Dim rand = 生成随机数(100,300)
+    Tap intX, intY
+    Delay 10
+    Tap intX, intY
+    Delay rand
+    Tap intX, intY
+    Delay 10
+    Tap intX, intY
+End Function
+
+Function 滑动屏幕(intX1, intY1,intX2, intY2)
+    TouchDown intX1,intY1,1
+    TouchMove intX2,intY2,1
+    Delay 134
+    TouchUp 1
+End Function
+
+Function 等图(x1,y1,x2,y2,图片名称,是否点击,相似度,等待时间)
+    Dim intX, intY
+    等图 = 0
+    TracePrint "调用等图函数:"&图片名称&""
+    for 等待时间
+        FindPic x1,y1,x2,y2, "Attachment:"&图片名称&".png","000000", 0,相似度, intX, intY 
+        If intX > -1 And intY > -1 Then 
+            TracePrint ""&图片名称&"已等到"
+            If 是否点击 = 1 Then 
+                Delay 100
+                Tap intX, intY
+            End If
+            等图 = 1
+            Exit For
+        Else 
+            delay 1000
+        End If
+    next
+End Function
+
+Function 退出游戏(应用)
+    KeyPress "Home"
+    Delay 3000//延迟3秒
+    KillApp 应用 //杀掉可能正在运行的应用
+End Function
