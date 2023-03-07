@@ -1,0 +1,2 @@
+# anjianScript
+We love game
